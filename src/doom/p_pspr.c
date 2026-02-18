@@ -639,7 +639,7 @@ P_GunShot
     angle_t	angle;
     int		damage;
 	
-    damage = 5*(P_Random ()%3+1);
+    damage = 4*(P_Random ()%3+2);
     angle = mo->angle;
 
     if (!accurate)
