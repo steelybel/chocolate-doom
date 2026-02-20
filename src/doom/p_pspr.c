@@ -111,11 +111,20 @@ void P_CalcSwing (player_t*	player)
 
     swing = player->bob;
 
-    angle = (FINEANGLES/70*leveltime)&FINEMASK;
-    swingx = FixedMul ( swing, finesine[angle]);
+    //OLD BOB
+    //angle = (FINEANGLES/70*leveltime)&FINEMASK;
+    //swingx = FixedMul ( swing, finesine[angle]);
 
-    angle = (FINEANGLES/70*leveltime+FINEANGLES/2)&FINEMASK;
-    swingy = -FixedMul ( swingx, finesine[angle]);
+    //angle = (FINEANGLES/70*leveltime+FINEANGLES/2)&FINEMASK;
+    //swingy = -FixedMul ( swingx, finesine[angle]);
+
+    //NEW BOB
+    angle = (FINEANGLES / 70 * leveltime) & FINEMASK;
+    swingx = FixedMul(FixedMul(swing, 2), finecosine[angle]);
+
+    angle = (FINEANGLES / 70 * leveltime + FINEANGLES / 2) & FINEMASK;
+    swingy = -FixedMul(swingx, (1 - finesine[angle]));
+
 }
 
 
