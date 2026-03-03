@@ -35,7 +35,7 @@
 //
 #define PRESSKEY 	"press a key."
 #define PRESSYN 	"press y or n."
-#define QUITMSG	"are you sure you want to\nquit this great game?"
+#define QUITMSG		"are you really, really sure?"
 #define LOADNET 	"you can't do load while in a net game!\n\n"PRESSKEY
 #define QLOADNET	"you can't quickload during a netgame!\n\n"PRESSKEY
 #define QSAVESPOT	"you haven't picked a quicksave slot yet!\n\n"PRESSKEY
@@ -60,7 +60,7 @@
 #define NETEND	"you can't end a netgame!\n\n"PRESSKEY
 #define ENDGAME	"are you sure you want to end the game?\n\n"PRESSYN
 
-#define DOSY		"(press y to quit to dos.)"
+#define DOSY		"(press y to exit.)"
 
 #define DETAILHI	"High detail"
 #define DETAILLO	"Low detail"
@@ -74,56 +74,56 @@
 //
 //	P_inter.C
 //
-#define GOTARMOR	"Picked up the armor."
-#define GOTMEGA	"Picked up the MegaArmor!"
-#define GOTHTHBONUS	"Picked up a health bonus."
-#define GOTARMBONUS	"Picked up an armor bonus."
-#define GOTSTIM	"Picked up a stimpack."
-#define GOTMEDINEED	"Picked up a medikit that you REALLY need!"
-#define GOTMEDIKIT	"Picked up a medikit."
-#define GOTSUPER	"Supercharge!"
+#define GOTARMOR	"Plate Carrier"
+#define GOTMEGA		"Flak Jacket"
+#define GOTHTHBONUS	"Vitals boosted"
+#define GOTARMBONUS	"Armor boosted"
+#define GOTSTIM		"Stimpack\n(+10 Vitality)"
+#define GOTMEDINEED	"Medical Kit (+25 Vitality) - Disengaging Emergency Mode..."
+#define GOTMEDIKIT	"Medical Kit (+25 Vitality)"
+#define GOTSUPER	"Adrenaline administered"
 
-#define GOTBLUECARD	"Picked up a blue keycard."
-#define GOTYELWCARD	"Picked up a yellow keycard."
-#define GOTREDCARD	"Picked up a red keycard."
-#define GOTBLUESKUL	"Picked up a blue skull key."
-#define GOTYELWSKUL	"Picked up a yellow skull key."
-#define GOTREDSKULL	"Picked up a red skull key."
+#define GOTBLUECARD	"Obtained Blue Keycard"
+#define GOTYELWCARD	"Obtained Yellow Keycard"
+#define GOTREDCARD	"Obtained Red Keycard"
+#define GOTBLUESKUL	"Obtained blue skull key."
+#define GOTYELWSKUL	"Obtained yellow skull key."
+#define GOTREDSKULL	"Obtained red skull key."
 
-#define GOTINVUL	"Invulnerability!"
-#define GOTBERSERK	"Berserk!"
-#define GOTINVIS	"Partial Invisibility"
-#define GOTSUIT	"Radiation Shielding Suit"
-#define GOTMAP	"Computer Area Map"
-#define GOTVISOR	"Light Amplification Visor"
-#define GOTMSPHERE	"MegaSphere!"
+#define GOTINVUL	"Obtained Personal Force Field"
+#define GOTBERSERK	"Grenades?"
+#define GOTINVIS	"Obtained Cloaking Device"
+#define GOTSUIT		"Obtained Hazmat Apparatus"
+#define GOTMAP		"Obtained Digital Floor Plan"
+#define GOTVISOR	"Obtained Low-Light Optic"
+#define GOTMSPHERE	"Obtained ?!//??1"
 
-#define GOTCLIP	"Picked up a clip."
-#define GOTCLIPBOX	"Picked up a box of bullets."
-#define GOTROCKET	"Picked up a rocket."
-#define GOTROCKBOX	"Picked up a box of rockets."
-#define GOTCELL	"Picked up an energy cell."
-#define GOTCELLBOX	"Picked up an energy cell pack."
-#define GOTSHELLS	"Picked up 4 shotgun shells."
-#define GOTSHELLBOX	"Picked up a box of shotgun shells."
+#define GOTCLIP		".45 Magazine (+12)"
+#define GOTCLIPBOX	".45 Ammo Box (+60)"
+#define GOTROCKET	"Obtained Grenades"
+#define GOTROCKBOX	"Grenade Crate (+6)"
+#define GOTCELL		"Gel Cartridge (+10)"
+#define GOTCELLBOX	"Gel Ammo Box (+40)"
+#define GOTSHELLS	"Loose 12ga Shells (+4)"
+#define GOTSHELLBOX	"12ga Shell Box (+20)"
 #define GOTBACKPACK	"Picked up a backpack full of ammo!"
 
-#define GOTBFG9000	"You got the BFG9000!  Oh, yes."
-#define GOTCHAINGUN	"You got the chaingun!"
-#define GOTCHAINSAW	"A chainsaw!  Find some meat!"
-#define GOTLAUNCHER	"You got the rocket launcher!"
-#define GOTPLASMA	"You got the plasma gun!"
-#define GOTSHOTGUN	"You got the shotgun!"
+#define GOTBFG9000	"Obtained Anti-Material Rifle"
+#define GOTCHAINGUN	"Obtained Personal Defense Weapon"
+#define GOTCHAINSAW	"Obtained Ballistic Shield"
+#define GOTLAUNCHER	"Obtained Grenades"
+#define GOTPLASMA	"Obtained Portable Plasma Cannon"
+#define GOTSHOTGUN	"Obtained Breaching Shotgun"
 #define GOTSHOTGUN2	"You got the super shotgun!"
 
 //
 // P_Doors.C
 //
 #define PD_BLUEO	"You need a blue key to activate this object"
-#define PD_REDO	"You need a red key to activate this object"
+#define PD_REDO		"You need a red key to activate this object"
 #define PD_YELLOWO	"You need a yellow key to activate this object"
 #define PD_BLUEK	"You need a blue key to open this door"
-#define PD_REDK	"You need a red key to open this door"
+#define PD_REDK		"You need a red key to open this door"
 #define PD_YELLOWK	"You need a yellow key to open this door"
 
 //
@@ -335,11 +335,11 @@
 
 #define STSTR_MUS		"Music Change"
 #define STSTR_NOMUS		"IMPOSSIBLE SELECTION"
-#define STSTR_DQDON		"Degreelessness Mode On"
-#define STSTR_DQDOFF	"Degreelessness Mode Off"
+#define STSTR_DQDON		"God Mode On"
+#define STSTR_DQDOFF	"God Mode Off"
 
-#define STSTR_KFAADDED	"Very Happy Ammo Added"
-#define STSTR_FAADDED	"Ammo (no keys) Added"
+#define STSTR_KFAADDED	"All Weapons + Ammo + Keys"
+#define STSTR_FAADDED	"Extra Ammo"
 
 #define STSTR_NCON		"No Clipping Mode ON"
 #define STSTR_NCOFF		"No Clipping Mode OFF"
@@ -348,7 +348,7 @@
 #define STSTR_BEHOLDX	"Power-up Toggled"
 
 #define STSTR_CHOPPERS	"... doesn't suck - GM"
-#define STSTR_CLEV		"Changing Level..."
+#define STSTR_CLEV		"Transporting..."
 
 //
 //	F_Finale.C

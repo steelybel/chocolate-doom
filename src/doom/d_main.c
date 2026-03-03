@@ -565,7 +565,7 @@ void D_DoAdvanceDemo (void)
     {
       case 0:
 	if ( gamemode == commercial )
-	    pagetic = TICRATE * 11;
+	    pagetic = TICRATE * 18;//was 11 secs to demo, now 40.
 	else
 	    pagetic = 170;
 	gamestate = GS_DEMOSCREEN;

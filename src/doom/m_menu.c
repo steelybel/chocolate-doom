@@ -1131,7 +1131,7 @@ static const char *M_SelectEndMessage(void)
 void M_QuitDOOM(int choice)
 {
     DEH_snprintf(endstring, sizeof(endstring), "%s\n\n" DOSY,
-                 DEH_String(M_SelectEndMessage()));
+                 DEH_String(QUITMSG));
 
     M_StartMessage(endstring,M_QuitResponse,true);
 }
