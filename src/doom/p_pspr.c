@@ -35,8 +35,8 @@
 
 #include "p_pspr.h"
 
-#define LOWERSPEED		FRACUNIT*6
-#define RAISESPEED		FRACUNIT*6
+#define LOWERSPEED		FRACUNIT*12
+#define RAISESPEED		FRACUNIT*12
 
 #define WEAPONBOTTOM	128*FRACUNIT
 #define WEAPONTOP		32*FRACUNIT
@@ -112,18 +112,18 @@ void P_CalcSwing (player_t*	player)
     swing = player->bob;
 
     //OLD BOB
-    //angle = (FINEANGLES/70*leveltime)&FINEMASK;
-    //swingx = FixedMul ( swing, finesine[angle]);
+    angle = (FINEANGLES/70*leveltime)&FINEMASK;
+    swingx = FixedMul ( swing, finesine[angle]);
 
-    //angle = (FINEANGLES/70*leveltime+FINEANGLES/2)&FINEMASK;
-    //swingy = -FixedMul ( swingx, finesine[angle]);
+    angle = (FINEANGLES/70*leveltime+FINEANGLES/2)&FINEMASK;
+    swingy = -FixedMul ( swingx, finesine[angle]);
 
     //NEW BOB
-    angle = (FINEANGLES / 70 * leveltime) & FINEMASK;
-    swingx = FixedMul(FixedMul(swing, 2), finecosine[angle]);
+    //angle = (FINEANGLES / 70 * leveltime) & FINEMASK;
+    //swingx = FixedMul(FixedMul(swing, 2), finecosine[angle]);
 
-    angle = (FINEANGLES / 70 * leveltime + FINEANGLES / 2) & FINEMASK;
-    swingy = -FixedMul(swingx, (1 - finesine[angle]));
+    //angle = (FINEANGLES / 70 * leveltime + FINEANGLES / 2) & FINEMASK;
+    //swingy = -FixedMul(swingx, (1 - finesine[angle]));
 
 }
 
@@ -142,8 +142,8 @@ void P_BringUpWeapon (player_t* player)
     if (player->pendingweapon == wp_nochange)
 	player->pendingweapon = player->readyweapon;
 		
-    if (player->pendingweapon == wp_chainsaw)
-	S_StartSound (player->mo, sfx_sawup);
+    //if (player->pendingweapon == wp_chainsaw)
+	//S_StartSound (player->mo, sfx_sawup);
 		
     newstate = weaponinfo[player->pendingweapon].upstate;
 
@@ -253,7 +253,8 @@ void P_FireWeapon (player_t* player)
     P_SetMobjState (player->mo, S_PLAY_ATK1);
     newstate = weaponinfo[player->readyweapon].atkstate;
     P_SetPsprite (player, ps_weapon, newstate);
-    P_NoiseAlert (player->mo, player->mo);
+    if (player->readyweapon != wp_fist)
+        P_NoiseAlert (player->mo, player->mo);
 }
 
 
@@ -386,8 +387,8 @@ A_Lower
 ( player_t*	player,
   pspdef_t*	psp )
 {	
-    psp->sy += LOWERSPEED;
-
+    fixed_t crap = FixedDiv(psp->sy, WEAPONBOTTOM - WEAPONTOP);
+    psp->sy += FixedMul(crap,crap) * 24;
     // Is already down.
     if (psp->sy < WEAPONBOTTOM )
 	return;
@@ -426,7 +427,9 @@ A_Raise
 {
     statenum_t	newstate;
 	
-    psp->sy -= RAISESPEED;
+    //psp->sy -= RAISESPEED;
+    fixed_t crap = FixedDiv(psp->sy, WEAPONBOTTOM - WEAPONTOP);
+    psp->sy -= FixedMul(crap, crap) * 24;
 
     if (psp->sy > WEAPONTOP )
 	return;
@@ -689,6 +692,8 @@ A_FireShotgun
   pspdef_t*	psp ) 
 {
     int		i;
+    angle_t angle;
+    int     damage;
 	
     S_StartSound (player->mo, sfx_shotgn);
     P_SetMobjState (player->mo, S_PLAY_ATK2);
@@ -701,8 +706,16 @@ A_FireShotgun
 
     P_BulletSlope (player->mo);
 	
-    for (i=0 ; i<7 ; i++)
-	P_GunShot (player->mo, false);
+    /* for (i = 0; i < 7; i++)
+	P_GunShot (player->mo, false);*/
+    for (i = 0; i < 9; i++)
+    {
+        damage = 4 * (P_Random() % 3 + 1);
+        angle = player->mo->angle;
+        angle += P_SubRandom() << ANGLETOFINESHIFT;
+        P_LineAttack(player->mo, angle, MISSILERANGE,
+                     bulletslope + (P_SubRandom() << 4), damage);
+    }
 }
 
 
@@ -752,7 +765,10 @@ A_FireCGun
 ( player_t*	player,
   pspdef_t*	psp ) 
 {
-    S_StartSound (player->mo, sfx_pistol);
+    angle_t angle;
+    int damage;
+
+    S_StartSound (player->mo, sfx_dshtgn);
 
     if (!player->ammo[weaponinfo[player->readyweapon].ammo])
 	return;
@@ -760,15 +776,20 @@ A_FireCGun
     P_SetMobjState (player->mo, S_PLAY_ATK2);
     DecreaseAmmo(player, weaponinfo[player->readyweapon].ammo, 1);
 
-    P_SetPsprite (player,
+    P_SetPsprite (player, ps_flash, weaponinfo[player->readyweapon].flashstate);
+        /*
 		  ps_flash,
 		  weaponinfo[player->readyweapon].flashstate
 		  + psp->state
-		  - &states[S_CHAIN1] );
+		  - &states[S_CHAIN1] );*/
 
     P_BulletSlope (player->mo);
-	
-    P_GunShot (player->mo, !player->refire);
+    damage = 4 * (P_Random() % 3 + 2);
+    angle = player->mo->angle;
+    angle += P_SubRandom() << ANGLETOFINESHIFT;
+    P_LineAttack(player->mo, angle, MISSILERANGE,
+        bulletslope + (P_SubRandom() << 5), damage);
+    //P_GunShot (player->mo, !player->refire);
 }
 
 

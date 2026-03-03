@@ -70,7 +70,7 @@ weaponinfo_t	weaponinfo[NUMWEAPONS] =
 	S_CHAINDOWN,
 	S_CHAIN,
 	S_CHAIN1,
-	S_CHAINFLASH1
+    S_PISTOLFLASH //S_CHAINFLASH1
     },
     {
 	// missile launcher
