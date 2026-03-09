@@ -160,10 +160,12 @@ typedef struct menu_s
 short		itemOn;			// menu item skull is on
 short		skullAnimCounter;	// skull animation counter
 short		whichSkull;		// which skull to draw
+//short		whichSkullR;		// which skull to draw (Reversed)
 
 // graphic name of skulls
 // warning: initializer-string for array of chars is too long
 const char *skullName[2] = {"M_SKULL1","M_SKULL2"};
+const char *skullNameR[2] = {"M_SKULL3","M_SKULL4"};
 
 // current menudef
 menu_t*	currentMenu;                          
@@ -1993,7 +1995,8 @@ void M_Drawer (void)
 
 	return;
     }
-
+    //V_DrawPatchDirect(SCREENWIDTH / 2, SCREENHEIGHT / 2,
+                //W_CacheLumpName(DEH_String("STCROSS"), PU_CACHE));
     if (opldev)
     {
         M_DrawOPLDev();
@@ -2026,6 +2029,9 @@ void M_Drawer (void)
     V_DrawPatchDirect(x + SKULLXOFF, currentMenu->y - 5 + itemOn*LINEHEIGHT,
 		      W_CacheLumpName(DEH_String(skullName[whichSkull]),
 				      PU_CACHE));
+//    V_DrawPatchDirect(SCREENWIDTH - x, currentMenu->y - 5 + itemOn*LINEHEIGHT,
+//		      W_CacheLumpName(DEH_String(skullNameR[whichSkull]),
+//				      PU_CACHE));
 }
 
 

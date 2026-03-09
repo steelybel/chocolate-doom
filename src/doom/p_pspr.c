@@ -463,6 +463,26 @@ A_GunFlash
 // WEAPON ATTACKS
 //
 
+//AdjustPlayerAngle
+//-From Hexen
+#define MAX_ANGADJUST (5 * ANG1)
+
+void AdjustPlayerAngle(mobj_t *pmo)
+{
+    angle_t angle;
+    int difference;
+
+    angle = R_PointToAngle2(pmo->x, pmo->y, linetarget->x, linetarget->y);
+    difference = (int) angle - (int) pmo->angle;
+    if (abs(difference) > MAX_ANGADJUST)
+    {
+        pmo->angle += difference > 0 ? MAX_ANGADJUST : -MAX_ANGADJUST;
+    }
+    else
+    {
+        pmo->angle = angle;
+    }
+}
 
 //
 // A_Punch
@@ -475,26 +495,53 @@ A_Punch
     angle_t	angle;
     int		damage;
     int		slope;
+    int     i;
 	
     damage = (P_Random ()%10+1)<<1;
 
     if (player->powers[pw_strength])	
-	damage *= 10;
+	damage *= 2;//originally 10. agh!
+    //lifted hexen mace/fist code
+    for (i = 0; i < 16; i++)
+    {
+        angle = player->mo->angle + i * (ANG45 / 16);
+        slope = P_AimLineAttack(player->mo, angle, 2 * MELEERANGE);
+        if (linetarget)
+        {
+            P_LineAttack(player->mo, angle, 2 * MELEERANGE, slope, damage);
+            AdjustPlayerAngle(player->mo);
+            //                      player->mo->angle = R_PointToAngle2(player->mo->x,
+            //                              player->mo->y, linetarget->x, linetarget->y);
+            goto macedone;
+        }
+        angle = player->mo->angle - i * (ANG45 / 16);
+        slope = P_AimLineAttack(player->mo, angle, 2 * MELEERANGE);
+        if (linetarget)
+        {
+            P_LineAttack(player->mo, angle, 2 * MELEERANGE, slope, damage);
+            AdjustPlayerAngle(player->mo);
+            //                      player->mo->angle = R_PointToAngle2(player->mo->x,
+            //                              player->mo->y, linetarget->x, linetarget->y);
+            goto macedone;
+        }
+    }
 
     angle = player->mo->angle;
-    angle += P_SubRandom() << 18;
+    //angle += P_SubRandom() << 18;
     slope = P_AimLineAttack (player->mo, angle, MELEERANGE);
     P_LineAttack (player->mo, angle, MELEERANGE, slope, damage);
 
     // turn to face target
-    if (linetarget)
+    /* if (linetarget)
     {
 	S_StartSound (player->mo, sfx_punch);
 	player->mo->angle = R_PointToAngle2 (player->mo->x,
 					     player->mo->y,
 					     linetarget->x,
 					     linetarget->y);
-    }
+    }*/
+macedone:
+    return;
 }
 
 
@@ -716,6 +763,7 @@ A_FireShotgun
         P_LineAttack(player->mo, angle, MISSILERANGE,
                      bulletslope + (P_SubRandom() << 4), damage);
     }
+    player->recoil = FRACUNIT*8;
 }
 
 

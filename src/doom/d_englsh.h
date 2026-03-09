@@ -176,8 +176,8 @@
 #define HUSTR_E4M8	"E4M8: Unto The Cruel"
 #define HUSTR_E4M9	"E4M9: Fear"
 
-#define HUSTR_1	"level 1: entryway"
-#define HUSTR_2	"level 2: underhalls"
+#define HUSTR_1	"level 1: catalyst"
+#define HUSTR_2	"level 2: transit"
 #define HUSTR_3	"level 3: the gantlet"
 #define HUSTR_4	"level 4: the focus"
 #define HUSTR_5	"level 5: the waste tunnels"

@@ -360,7 +360,6 @@ void ST_refreshBackground(void)
 
 	V_CopyRect(ST_X, 0, st_backing_screen, ST_WIDTH, ST_HEIGHT, ST_X, ST_Y);
     }
-
 }
 
 

@@ -91,6 +91,8 @@ typedef struct player_s
     fixed_t         	deltaviewheight;
     // bounded/scaled total momentum.
     fixed_t         	bob;	
+    // visual recoil craaap.
+    fixed_t recoil;
 
     // This is only used between levels,
     // mo->health is used during levels.

@@ -78,6 +78,10 @@ void P_CalcHeight (player_t* player)
     // OPTIMIZE: tablify angle
     // Note: a LUT allows for effects
     //  like a ramp with low health.
+    if (!player->recoil)
+        player->recoil = 0;
+    if (player->recoil > 0)
+        player->recoil = FixedDiv(player->recoil, FRACUNIT*2);
     player->bob =
 	FixedMul (player->mo->momx, player->mo->momx)
 	+ FixedMul (player->mo->momy,player->mo->momy);
@@ -127,7 +131,7 @@ void P_CalcHeight (player_t* player)
 		player->deltaviewheight = 1;
 	}
     }
-    player->viewz = player->mo->z + player->viewheight + bob;
+    player->viewz = player->mo->z + player->viewheight + bob;// + player->recoil;
 
     if (player->viewz > player->mo->ceilingz-4*FRACUNIT)
 	player->viewz = player->mo->ceilingz-4*FRACUNIT;
