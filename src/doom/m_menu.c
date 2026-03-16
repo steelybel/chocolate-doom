@@ -341,7 +341,7 @@ menuitem_t OptionsMenu[]=
 {
     {1,"M_ENDGAM",	M_EndGame,'e'},
     {1,"M_MESSG",	M_ChangeMessages,'m'},
-    {1,"M_DETAIL",	M_ChangeDetail,'g'},
+    {1,"",	M_ChangeDetail,'g'},//"M_DETAIL"
     {2,"M_SCRNSZ",	M_SizeDisplay,'s'},
     {-1,"",0,'\0'},
     {2,"M_MSENS",	M_ChangeSensitivity,'m'},
@@ -916,6 +916,7 @@ int     epi;
 void M_DrawEpisode(void)
 {
     V_DrawPatchDirect(54, 38, W_CacheLumpName(DEH_String("M_EPISOD"), PU_CACHE));
+    M_WriteText(54, 92, "The deadliest episode yet");
 }
 
 void M_VerifyNightmare(int key)
@@ -959,6 +960,7 @@ void M_Episode(int choice)
 // M_Options
 //
 static const char *detailNames[2] = {"M_GDHIGH","M_GDLOW"};
+static const char *detailNamesAlt[2] = {"Graphics Detail: High","Graphics Detail: Low"};
 static const char *msgNames[2] = {"M_MSGOFF","M_MSGON"};
 
 void M_DrawOptions(void)
@@ -966,9 +968,11 @@ void M_DrawOptions(void)
     V_DrawPatchDirect(108, 15, W_CacheLumpName(DEH_String("M_OPTTTL"),
                                                PU_CACHE));
 	
-    V_DrawPatchDirect(OptionsDef.x + 175, OptionsDef.y + LINEHEIGHT * detail,
-		      W_CacheLumpName(DEH_String(detailNames[detailLevel]),
-			              PU_CACHE));
+    M_WriteText(OptionsDef.x, OptionsDef.y + LINEHEIGHT * detail,
+                DEH_String(detailNamesAlt[detailLevel]));
+    //V_DrawPatchDirect(OptionsDef.x + 175, OptionsDef.y + LINEHEIGHT * detail,
+		      //W_CacheLumpName(DEH_String(detailNames[detailLevel]),
+			              //PU_CACHE));
 
     V_DrawPatchDirect(OptionsDef.x + 120, OptionsDef.y + LINEHEIGHT * messages,
                       W_CacheLumpName(DEH_String(msgNames[showMessages]),

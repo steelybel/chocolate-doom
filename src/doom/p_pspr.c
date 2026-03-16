@@ -70,11 +70,14 @@ P_SetPsprite
 	psp->state = state;
 	psp->tics = state->tics;	// could be 0
 
-	if (state->misc1)
+    fixed_t bobx = P_GetBob(player, false);
+    fixed_t boby = P_GetBob(player, true);
+
+	if (state->misc1 || state->misc2)
 	{
 	    // coordinate set
-	    psp->sx = state->misc1 << FRACBITS;
-	    psp->sy = state->misc2 << FRACBITS;
+	    psp->sx = bobx + (state->misc1 << FRACBITS);
+	    psp->sy = boby + (state->misc2 << FRACBITS) - WEAPONTOP;
 	}
 	
 	// Call action routine.
@@ -127,6 +130,14 @@ void P_CalcSwing (player_t*	player)
 
 }
 
+fixed_t P_GetBob(player_t* player, boolean y)
+{
+    int angle = (128 * leveltime) & FINEMASK;
+    if (!y)
+        return FRACUNIT + FixedMul(player->bob, finecosine[angle]);
+    angle &= FINEANGLES / 2 - 1;
+    return WEAPONTOP + FixedMul(player->bob, finesine[angle]);
+}
 
 
 //
@@ -328,10 +339,10 @@ A_WeaponReady
 	player->attackdown = false;
     
     // bob the weapon based on movement speed
-    angle = (128*leveltime)&FINEMASK;
-    psp->sx = FRACUNIT + FixedMul (player->bob, finecosine[angle]);
-    angle &= FINEANGLES/2-1;
-    psp->sy = WEAPONTOP + FixedMul (player->bob, finesine[angle]);
+    //angle = (128*leveltime)&FINEMASK;
+    psp->sx = P_GetBob(player, false);
+    //angle &= FINEANGLES/2-1024;//note for bel - this is just how they do absolute values. sure man whatever.
+    psp->sy = P_GetBob(player, true);
 }
 
 
@@ -759,7 +770,7 @@ A_FireShotgun
     {
         damage = 4 * (P_Random() % 3 + 1);
         angle = player->mo->angle;
-        angle += P_SubRandom() << ANGLETOFINESHIFT;
+        angle += P_SubRandom() << 18;
         P_LineAttack(player->mo, angle, MISSILERANGE,
                      bulletslope + (P_SubRandom() << 4), damage);
     }
@@ -824,19 +835,20 @@ A_FireCGun
     P_SetMobjState (player->mo, S_PLAY_ATK2);
     DecreaseAmmo(player, weaponinfo[player->readyweapon].ammo, 1);
 
-    P_SetPsprite (player, ps_flash, weaponinfo[player->readyweapon].flashstate);
-        /*
+    P_SetPsprite (player, //ps_flash, weaponinfo[player->readyweapon].flashstate);
 		  ps_flash,
-		  weaponinfo[player->readyweapon].flashstate
-		  + psp->state
-		  - &states[S_CHAIN1] );*/
-
+		  weaponinfo[player->readyweapon].flashstate + 
+          psp->state->misc1);//psp->state
+		  //- &states[S_CHAIN1] );
+    //psp->sx = P_SubRandom() % 8;
+    //psp->sy = WEAPONTOP + FRACUNIT*(P_SubRandom() % 3);
     P_BulletSlope (player->mo);
     damage = 4 * (P_Random() % 3 + 2);
     angle = player->mo->angle;
-    angle += P_SubRandom() << ANGLETOFINESHIFT;
+    angle += P_SubRandom() << 19;
     P_LineAttack(player->mo, angle, MISSILERANGE,
-        bulletslope + (P_SubRandom() << 5), damage);
+        bulletslope + (P_SubRandom() << 4),
+        damage);
     //P_GunShot (player->mo, !player->refire);
 }
 

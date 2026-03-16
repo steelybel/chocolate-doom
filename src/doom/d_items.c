@@ -70,7 +70,7 @@ weaponinfo_t	weaponinfo[NUMWEAPONS] =
 	S_CHAINDOWN,
 	S_CHAIN,
 	S_CHAIN1,
-    S_PISTOLFLASH //S_CHAINFLASH1
+    S_DSGUNFLASH1 //S_CHAINFLASH1
     },
     {
 	// missile launcher
@@ -111,11 +111,16 @@ weaponinfo_t	weaponinfo[NUMWEAPONS] =
     {
 	// super shotgun
 	am_shell,
-	S_DSGUNUP,
-	S_DSGUNDOWN,
-	S_DSGUN,
-	S_DSGUN1,
-	S_DSGUNFLASH1
+	S_SGUNUP,
+	S_SGUNDOWN,
+	S_SGUN,
+	S_SGUN1,
+	S_SGUNFLASH1
+	//S_DSGUNUP,
+	//S_DSGUNDOWN,
+	//S_DSGUN,
+	//S_DSGUN1,
+	//S_DSGUNFLASH1
     },	
 };
 
