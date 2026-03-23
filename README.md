@@ -1,4 +1,10 @@
-# Chocolate Doom
+# Bel's Chocolate Doom Fork
+
+## BEGIN WARNING
+This is for a new game, built off of the Doom engine, Raven-style.
+It may compile but will break almost instantly without the merge WAD.
+You almost definitely don't have it, so uh... tough luck, I guess.
+## END WARNING
 
 Chocolate Doom aims to accurately reproduce the original DOS version of
 Doom and other games based on the Doom engine in a form that can be
