@@ -47,7 +47,7 @@
 // but we do not have any moving sectors nearby
 #define MAXRADIUS		32*FRACUNIT
 
-#define GRAVITY		FRACUNIT
+#define GRAVITY		FRACUNIT/2
 #define MAXMOVE		(30*FRACUNIT)
 
 #define USERANGE		(64*FRACUNIT)
@@ -119,6 +119,7 @@ void	P_SpawnPuff (fixed_t x, fixed_t y, fixed_t z);
 void 	P_SpawnBlood (fixed_t x, fixed_t y, fixed_t z, int damage);
 mobj_t* P_SpawnMissile (mobj_t* source, mobj_t* dest, mobjtype_t type);
 void	P_SpawnPlayerMissile (mobj_t* source, mobjtype_t type);
+void	P_SpawnPlayerMissile2 (mobj_t* source, mobjtype_t type, fixed_t pitchadd);
 
 
 //

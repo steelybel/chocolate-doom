@@ -1999,8 +1999,7 @@ void M_Drawer (void)
 
 	return;
     }
-    //V_DrawPatchDirect(SCREENWIDTH / 2, SCREENHEIGHT / 2,
-                //W_CacheLumpName(DEH_String("STCROSS"), PU_CACHE));
+
     if (opldev)
     {
         M_DrawOPLDev();

@@ -142,7 +142,7 @@ state_t	states[NUMSTATES] = {
     {SPR_PISG,1,2,{A_FirePistol},S_PISTOL3,0,32},// S_PISTOL2
     {SPR_PISG,2,2,{NULL},S_PISTOL4,0,32},	// S_PISTOL3
     {SPR_PISG,3,2,{NULL},S_DSNR1,0,32},	// S_PISTOL4
-    {SPR_PISF,32768,2,{A_Light1},S_LIGHTDONE,0,0},	// S_PISTOLFLASH
+    {SPR_PISF,32769,1,{A_Light1},S_LIGHTDONE,0,0},	// S_PISTOLFLASH
     {SPR_SHTG,0,1,{A_WeaponReady},S_SGUN,0,0},	// S_SGUN
     {SPR_SHTG,0,1,{A_Lower},S_SGUNDOWN,0,0},	// S_SGUNDOWN
     {SPR_SHTG,0,1,{A_Raise},S_SGUNUP,0,0},	// S_SGUNUP
@@ -155,8 +155,8 @@ state_t	states[NUMSTATES] = {
     {SPR_SHTG,5,5,{NULL},S_SGUN8,0,0},	// S_SGUN7
     {SPR_SHTG,6,5,{NULL},S_SGUN9,0,0},	// S_SGUN8
     {SPR_SHTG,0,7,{A_ReFire},S_SGUN,0,0},	// S_SGUN9
-    {SPR_SHTF,32768,2,{A_Light1},S_SGUNFLASH2,0,0},	// S_SGUNFLASH1
-    {SPR_SHTF,32769,2,{A_Light2},S_LIGHTDONE,0,0},	// S_SGUNFLASH2
+    {SPR_SHTF,32768,2,{A_Light2},S_SGUNFLASH2,0,0},	// S_SGUNFLASH1
+    {SPR_SHTF,32770,2,{A_Light1},S_LIGHTDONE,0,0},	// S_SGUNFLASH2
     {SPR_SHT2,0,1,{A_WeaponReady},S_DSGUN,0,0},	// S_DSGUN
     {SPR_SHT2,0,1,{A_Lower},S_DSGUNDOWN,0,0},	// S_DSGUNDOWN
     {SPR_SHT2,0,1,{A_Raise},S_DSGUNUP,0,0},	// S_DSGUNUP
@@ -185,7 +185,7 @@ state_t	states[NUMSTATES] = {
     {SPR_MISG,0,1,{A_WeaponReady},S_MISSILE,0,0},	// S_MISSILE
     {SPR_MISG,0,1,{A_Lower},S_MISSILEDOWN,0,0},	// S_MISSILEDOWN
     {SPR_MISG,0,1,{A_Raise},S_MISSILEUP,0,0},	// S_MISSILEUP
-    {SPR_MISG,1,8,{A_GunFlash},S_MISSILE2,0,0},	// S_MISSILE1
+    {SPR_MISG,1,11,{A_GunFlash},S_MISSILE2,0,0},	// S_MISSILE1
     {SPR_MISG,1,16,{A_FireMissile},S_MISSILE3,0,0},	// S_MISSILE2
     {SPR_MISG,1,0,{A_ReFire},S_MISSILE,0,0},	// S_MISSILE3
     {SPR_MISF,32768,5,{NULL},S_MISSILEFLASH2,0,0},	// S_MISSILEFLASH1
@@ -239,7 +239,7 @@ state_t	states[NUMSTATES] = {
     {SPR_PLSE,32770,4,{NULL},S_PLASEXP4,0,0},	// S_PLASEXP3
     {SPR_PLSE,32771,4,{NULL},S_PLASEXP5,0,0},	// S_PLASEXP4
     {SPR_PLSE,32772,4,{NULL},S_NULL,0,0},	// S_PLASEXP5
-    {SPR_MISL,32768,2,{NULL},S_ROCKET,0,0},	// S_ROCKET
+    {SPR_MISL,0,2,{NULL},S_ROCKET,0,0},	// S_ROCKET
     {SPR_BFS1,32768,4,{NULL},S_BFGSHOT2,0,0},	// S_BFGSHOT
     {SPR_BFS1,32769,4,{NULL},S_BFGSHOT,0,0},	// S_BFGSHOT2
     {SPR_BFE1,32768,8,{NULL},S_BFGLAND2,0,0},	// S_BFGLAND
@@ -442,10 +442,10 @@ state_t	states[NUMSTATES] = {
     {SPR_PUFF,2,4,{NULL},S_SMOKE5,0,0},	// S_SMOKE4
     {SPR_PUFF,3,4,{NULL},S_NULL,0,0},	// S_SMOKE5
     {SPR_FATB,32768,2,{A_Tracer},S_TRACER,0,0},	// S_TRACER
-    {SPR_FATB,32769,2,{A_Tracer},S_TRACER,0,0},	// S_TRACER2
-    {SPR_FBXP,32768,8,{NULL},S_TRACEEXP2,0,0},	// S_TRACEEXP1
-    {SPR_FBXP,32769,6,{NULL},S_TRACEEXP3,0,0},	// S_TRACEEXP2
-    {SPR_FBXP,32770,4,{NULL},S_NULL,0,0},	// S_TRACEEXP3
+    {SPR_FBXP,32769,4,{A_Explode},S_TRACEEXP1,0,0},	// S_TRACER2
+    {SPR_FBXP,32770,4,{NULL},S_TRACEEXP2,0,0},	// S_TRACEEXP1
+    {SPR_FBXP,32771,5,{NULL},S_TRACEEXP3,0,0},	// S_TRACEEXP2
+    {SPR_FBXP,4,6,{NULL},S_NULL,0,0},	// S_TRACEEXP3
     {SPR_SKEL,0,10,{A_Look},S_SKEL_STND2,0,0},	// S_SKEL_STND
     {SPR_SKEL,1,10,{A_Look},S_SKEL_STND,0,0},	// S_SKEL_STND2
     {SPR_SKEL,0,2,{A_Chase},S_SKEL_RUN2,0,0},	// S_SKEL_RUN1
@@ -484,9 +484,9 @@ state_t	states[NUMSTATES] = {
     {SPR_SKEL,11,5,{NULL},S_SKEL_RUN1,0,0},	// S_SKEL_RAISE6
     {SPR_MANF,32768,4,{NULL},S_FATSHOT2,0,0},	// S_FATSHOT1
     {SPR_MANF,32769,4,{NULL},S_FATSHOT1,0,0},	// S_FATSHOT2
-    {SPR_MISL,32769,8,{NULL},S_FATSHOTX2,0,0},	// S_FATSHOTX1
-    {SPR_MISL,32770,6,{NULL},S_FATSHOTX3,0,0},	// S_FATSHOTX2
-    {SPR_MISL,32771,4,{NULL},S_NULL,0,0},	// S_FATSHOTX3
+    {SPR_BEXP,32769,8,{NULL},S_FATSHOTX2,0,0},	// S_FATSHOTX1
+    {SPR_BEXP,32770,6,{NULL},S_FATSHOTX3,0,0},	// S_FATSHOTX2
+    {SPR_BEXP,32772,4,{NULL},S_NULL,0,0},	// S_FATSHOTX3
     {SPR_FATT,0,15,{A_Look},S_FATT_STND2,0,0},	// S_FATT_STND
     {SPR_FATT,1,15,{A_Look},S_FATT_STND,0,0},	// S_FATT_STND2
     {SPR_FATT,0,4,{A_Chase},S_FATT_RUN2,0,0},	// S_FATT_RUN1
@@ -924,9 +924,9 @@ state_t	states[NUMSTATES] = {
     {SPR_FIRE,32773,4,{A_Fire},S_SPAWNFIRE7,0,0},	// S_SPAWNFIRE6
     {SPR_FIRE,32774,4,{A_Fire},S_SPAWNFIRE8,0,0},	// S_SPAWNFIRE7
     {SPR_FIRE,32775,4,{A_Fire},S_NULL,0,0},		// S_SPAWNFIRE8
-    {SPR_MISL,32769,10,{NULL},S_BRAINEXPLODE2,0,0},	// S_BRAINEXPLODE1
-    {SPR_MISL,32770,10,{NULL},S_BRAINEXPLODE3,0,0},	// S_BRAINEXPLODE2
-    {SPR_MISL,32771,10,{A_BrainExplode},S_NULL,0,0},	// S_BRAINEXPLODE3
+    {SPR_FBXP,32769,10,{NULL},S_BRAINEXPLODE2,0,0},	// S_BRAINEXPLODE1
+    {SPR_FBXP,32770,10,{NULL},S_BRAINEXPLODE3,0,0},	// S_BRAINEXPLODE2
+    {SPR_FBXP,32771,10,{A_BrainExplode},S_NULL,0,0},	// S_BRAINEXPLODE3
     {SPR_ARM1,0,6,{NULL},S_ARM1A,0,0},	// S_ARM1
     {SPR_ARM1,32769,7,{NULL},S_ARM1,0,0},	// S_ARM1A
     {SPR_ARM2,0,6,{NULL},S_ARM2A,0,0},	// S_ARM2
@@ -967,12 +967,12 @@ state_t	states[NUMSTATES] = {
     {SPR_YSKU,32769,10,{NULL},S_YSKULL,0,0},	// S_YSKULL2
     {SPR_STIM,0,-1,{NULL},S_NULL,0,0},	// S_STIM
     {SPR_MEDI,0,-1,{NULL},S_NULL,0,0},	// S_MEDI
-    {SPR_SOUL,32768,6,{NULL},S_SOUL2,0,0},	// S_SOUL
-    {SPR_SOUL,32769,6,{NULL},S_SOUL3,0,0},	// S_SOUL2
-    {SPR_SOUL,32770,6,{NULL},S_SOUL4,0,0},	// S_SOUL3
-    {SPR_SOUL,32771,6,{NULL},S_SOUL5,0,0},	// S_SOUL4
-    {SPR_SOUL,32770,6,{NULL},S_SOUL6,0,0},	// S_SOUL5
-    {SPR_SOUL,32769,6,{NULL},S_SOUL,0,0},	// S_SOUL6
+    {SPR_SOUL,32768,6,{NULL},S_SOUL,0,0},	// S_SOUL
+    {SPR_MISL,0,3,{NULL},S_SOUL3,0,0},	// S_SOUL2
+    {SPR_MISL,1,3,{NULL},S_SOUL4,0,0},	// S_SOUL3
+    {SPR_MISL,2,3,{NULL},S_SOUL5,0,0},	// S_SOUL4
+    {SPR_MISL,3,3,{NULL},S_SOUL6,0,0},	// S_SOUL5
+    {SPR_MISL,4,3,{NULL},S_SOUL2,0,0},	// S_SOUL6
     {SPR_PINV,32768,6,{NULL},S_PINV2,0,0},	// S_PINV
     {SPR_PINV,32769,6,{NULL},S_PINV3,0,0},	// S_PINV2
     {SPR_PINV,32770,6,{NULL},S_PINV4,0,0},	// S_PINV3
@@ -1266,7 +1266,7 @@ mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
 	sfx_None,		// painsound
 	S_NULL,		// meleestate
 	S_NULL,		// missilestate
-	S_TRACEEXP1,		// deathstate
+	S_TBALLX1,		// deathstate
 	S_NULL,		// xdeathstate
 	sfx_barexp,		// deathsound
 	10*FRACUNIT,		// speed
@@ -1957,7 +1957,7 @@ mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
 
     {		// MT_ROCKET
 	-1,		// doomednum
-	S_ROCKET,		// spawnstate
+	S_SOUL2,		// spawnstate
 	1000,		// spawnhealth
 	S_NULL,		// seestate
 	sfx_rlaunc,		// seesound
@@ -1968,10 +1968,10 @@ mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
 	sfx_None,		// painsound
 	S_NULL,		// meleestate
 	S_NULL,		// missilestate
-	S_EXPLODE1,		// deathstate
+	S_TRACER2,		// deathstate
 	S_NULL,		// xdeathstate
 	sfx_barexp,		// deathsound
-	20*FRACUNIT,		// speed
+	12*FRACUNIT,		// speed
 	8*FRACUNIT,		// radius
 	8*FRACUNIT,		// height
 	100,		// mass
@@ -2077,7 +2077,8 @@ mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
 	sfx_None,		// deathsound
 	0,		// speed
 	20*FRACUNIT,		// radius
-	16*FRACUNIT,		// height
+	8*FRACUNIT,		// height - changed from 16 because wtf. 
+	//i dont want to bumb into ceilings so much esp with the fancy new smoke wisp gfx..
 	100,		// mass
 	0,		// damage
 	sfx_None,		// activesound

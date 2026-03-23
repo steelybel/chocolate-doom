@@ -1070,3 +1070,56 @@ P_SpawnPlayerMissile
     P_CheckMissileSpawn (th);
 }
 
+//
+// P_SpawnPlayerMissile2
+// Tries to aim at a nearby monster
+//
+void P_SpawnPlayerMissile2(mobj_t *source, mobjtype_t type, fixed_t pitchadd)
+{
+    mobj_t *th;
+    angle_t an;
+
+    fixed_t x;
+    fixed_t y;
+    fixed_t z;
+    fixed_t slope;
+
+    // see which target is to be aimed at
+    an = source->angle;
+    slope = P_AimLineAttack(source, an, 16 * 64 * FRACUNIT) + pitchadd;
+
+    if (!linetarget)
+    {
+        an += 1 << 26;
+        slope = P_AimLineAttack(source, an, 16 * 64 * FRACUNIT) + pitchadd;
+
+        if (!linetarget)
+        {
+            an -= 2 << 26;
+            slope = P_AimLineAttack(source, an, 16 * 64 * FRACUNIT) + pitchadd;
+        }
+
+        if (!linetarget)
+        {
+            an = source->angle;
+            slope = pitchadd;
+        }
+    }
+
+    x = source->x;
+    y = source->y;
+    z = source->z + 4 * 8 * FRACUNIT;
+
+    th = P_SpawnMobj(x, y, z, type);
+
+    if (th->info->seesound)
+        S_StartSound(th, th->info->seesound);
+
+    th->target = source;
+    th->angle = an;
+    th->momx = FixedMul(th->info->speed, finecosine[an >> ANGLETOFINESHIFT]);
+    th->momy = FixedMul(th->info->speed, finesine[an >> ANGLETOFINESHIFT]);
+    th->momz = FixedMul(th->info->speed, slope);
+
+    P_CheckMissileSpawn(th);
+}

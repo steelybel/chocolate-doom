@@ -399,6 +399,7 @@ A_Lower
   pspdef_t*	psp )
 {	
     fixed_t crap = FixedDiv(psp->sy, WEAPONBOTTOM - WEAPONTOP);
+    psp->sx += 5*FRACUNIT;
     psp->sy += FixedMul(crap,crap) * 24;
     // Is already down.
     if (psp->sy < WEAPONBOTTOM )
@@ -421,7 +422,7 @@ A_Lower
 	P_SetPsprite (player,  ps_weapon, S_NULL);
 	return;	
     }
-	
+    psp->sx = 0; //:)
     player->readyweapon = player->pendingweapon; 
 
     P_BringUpWeapon (player);
@@ -440,8 +441,10 @@ A_Raise
 	
     //psp->sy -= RAISESPEED;
     fixed_t crap = FixedDiv(psp->sy, WEAPONBOTTOM - WEAPONTOP);
+    if (psp->sy >= WEAPONBOTTOM)
+        psp->sx = (WEAPONTOP - psp->sy);
+    psp->sx += crap * 20;
     psp->sy -= FixedMul(crap, crap) * 24;
-
     if (psp->sy > WEAPONTOP )
 	return;
     
@@ -631,7 +634,7 @@ A_FireMissile
   pspdef_t*	psp ) 
 {
     DecreaseAmmo(player, weaponinfo[player->readyweapon].ammo, 1);
-    P_SpawnPlayerMissile (player->mo, MT_ROCKET);
+    P_SpawnPlayerMissile2 (player->mo, MT_ROCKET, 1<<13);
 }
 
 
@@ -709,7 +712,7 @@ P_GunShot
     angle_t	angle;
     int		damage;
 	
-    damage = 4*(P_Random ()%3+2);
+    damage = 8*(P_Random ()%2+1);//alt: 4*(P_Random ()%3+2);
     angle = mo->angle;
 
     if (!accurate)
@@ -752,6 +755,7 @@ A_FireShotgun
     int		i;
     angle_t angle;
     int     damage;
+    int     numpellets;
 	
     S_StartSound (player->mo, sfx_shotgn);
     P_SetMobjState (player->mo, S_PLAY_ATK2);
@@ -764,15 +768,18 @@ A_FireShotgun
 
     P_BulletSlope (player->mo);
 	
+    numpellets = 9;
     /* for (i = 0; i < 7; i++)
 	P_GunShot (player->mo, false);*/
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < numpellets; i++)
     {
         damage = 4 * (P_Random() % 3 + 1);
         angle = player->mo->angle;
-        angle += P_SubRandom() << 18;
+        angle += (-150 + (i * 300) / 8) * FRACUNIT * 8;
+        angle += P_SubRandom() << 16;
         P_LineAttack(player->mo, angle, MISSILERANGE,
-                     bulletslope + (P_SubRandom() << 4), damage);
+            bulletslope + (P_SubRandom() << 4), 
+            damage);
     }
     player->recoil = FRACUNIT*8;
 }
@@ -845,9 +852,9 @@ A_FireCGun
     P_BulletSlope (player->mo);
     damage = 4 * (P_Random() % 3 + 2);
     angle = player->mo->angle;
-    angle += P_SubRandom() << 19;
+    angle += P_SubRandom() << 18;
     P_LineAttack(player->mo, angle, MISSILERANGE,
-        bulletslope + (P_SubRandom() << 4),
+        bulletslope + (P_SubRandom() << 3),
         damage);
     //P_GunShot (player->mo, !player->refire);
 }

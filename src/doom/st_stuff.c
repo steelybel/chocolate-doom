@@ -123,21 +123,21 @@
 
 // AMMO number pos.
 #define ST_AMMOWIDTH		3	
-#define ST_AMMOX			44
-#define ST_AMMOY			171
+#define ST_AMMOX			221//44
+#define ST_AMMOY			173
 
 // HEALTH number pos.
 #define ST_HEALTHWIDTH		3	
-#define ST_HEALTHX			90
-#define ST_HEALTHY			171
+#define ST_HEALTHX			49//90
+#define ST_HEALTHY			173//171
 
 // Weapon pos.
-#define ST_ARMSX			111
-#define ST_ARMSY			172
-#define ST_ARMSBGX			104
-#define ST_ARMSBGY			168
-#define ST_ARMSXSPACE		12
-#define ST_ARMSYSPACE		10
+#define ST_ARMSX			66//111
+#define ST_ARMSY			173//172
+#define ST_ARMSBGX			59//104
+#define ST_ARMSBGY			168//168
+#define ST_ARMSXSPACE		6//12
+#define ST_ARMSYSPACE		8//10
 
 // Frags pos.
 #define ST_FRAGSX			138
@@ -146,51 +146,50 @@
 
 // ARMOR number pos.
 #define ST_ARMORWIDTH		3
-#define ST_ARMORX			221
-#define ST_ARMORY			171
-
+#define ST_ARMORX			129//221
+#define ST_ARMORY			173
 // Key icon positions.
 #define ST_KEY0WIDTH		8
 #define ST_KEY0HEIGHT		5
-#define ST_KEY0X			239
-#define ST_KEY0Y			171
+#define ST_KEY0X			292//239
+#define ST_KEY0Y			171//171
 #define ST_KEY1WIDTH		ST_KEY0WIDTH
-#define ST_KEY1X			239
-#define ST_KEY1Y			181
+#define ST_KEY1X			292
+#define ST_KEY1Y			181//181
 #define ST_KEY2WIDTH		ST_KEY0WIDTH
-#define ST_KEY2X			239
-#define ST_KEY2Y			191
+#define ST_KEY2X			292
+#define ST_KEY2Y			191//191
 
 // Ammunition counter.
 #define ST_AMMO0WIDTH		3
 #define ST_AMMO0HEIGHT		6
-#define ST_AMMO0X			288
-#define ST_AMMO0Y			173
+#define ST_AMMO0X			260
+#define ST_AMMO0Y			172
 #define ST_AMMO1WIDTH		ST_AMMO0WIDTH
-#define ST_AMMO1X			288
-#define ST_AMMO1Y			179
+#define ST_AMMO1X			260
+#define ST_AMMO1Y			178
 #define ST_AMMO2WIDTH		ST_AMMO0WIDTH
-#define ST_AMMO2X			288
-#define ST_AMMO2Y			191
+#define ST_AMMO2X			260
+#define ST_AMMO2Y			190
 #define ST_AMMO3WIDTH		ST_AMMO0WIDTH
-#define ST_AMMO3X			288
-#define ST_AMMO3Y			185
+#define ST_AMMO3X			260
+#define ST_AMMO3Y			184
 
 // Indicate maximum ammunition.
 // Only needed because backpack exists.
 #define ST_MAXAMMO0WIDTH		3
 #define ST_MAXAMMO0HEIGHT		5
-#define ST_MAXAMMO0X		314
-#define ST_MAXAMMO0Y		173
+#define ST_MAXAMMO0X		276//314
+#define ST_MAXAMMO0Y		172
 #define ST_MAXAMMO1WIDTH		ST_MAXAMMO0WIDTH
-#define ST_MAXAMMO1X		314
-#define ST_MAXAMMO1Y		179
+#define ST_MAXAMMO1X		ST_MAXAMMO0X
+#define ST_MAXAMMO1Y		178
 #define ST_MAXAMMO2WIDTH		ST_MAXAMMO0WIDTH
-#define ST_MAXAMMO2X		314
-#define ST_MAXAMMO2Y		191
+#define ST_MAXAMMO2X		ST_MAXAMMO0X
+#define ST_MAXAMMO2Y		190
 #define ST_MAXAMMO3WIDTH		ST_MAXAMMO0WIDTH
-#define ST_MAXAMMO3X		314
-#define ST_MAXAMMO3Y		185
+#define ST_MAXAMMO3X		ST_MAXAMMO0X
+#define ST_MAXAMMO3Y		184
 
 // Dimensions given in characters.
 #define ST_MSGWIDTH			52
@@ -916,7 +915,11 @@ void ST_doPaletteStuff(void)
 
 	palette += STARTBONUSPALS;
     }
-
+    //new: make it greeen
+    //else if (plyr->powers[pw_infrared] > 4 * 32 ||
+    //         plyr->powers[pw_infrared] & 8)
+    //palette = 14;
+    // --never mind it sucked
     else if ( plyr->powers[pw_ironfeet] > 4*32
 	      || plyr->powers[pw_ironfeet]&8)
 	palette = RADIATIONPAL;
@@ -975,6 +978,8 @@ void ST_drawWidgets(boolean refresh)
 	STlib_updateMultIcon(&w_keyboxes[i], refresh);
 
     STlib_updateNum(&w_frags, refresh);
+    V_DrawPatchDirect(SCREENWIDTH / 2, SCREENHEIGHT / 2,
+    W_CacheLumpName(DEH_String("STCROSS"), PU_CACHE));
 
 }
 

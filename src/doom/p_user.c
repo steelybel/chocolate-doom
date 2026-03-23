@@ -390,7 +390,7 @@ void P_PlayerThink (player_t* player)
 	    || (player->powers[pw_infrared]&8) )
 	{
 	    // almost full bright
-	    player->fixedcolormap = 1;
+	    player->fixedcolormap = 33;//1
 	}
 	else
 	    player->fixedcolormap = 0;
