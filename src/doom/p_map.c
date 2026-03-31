@@ -814,6 +814,111 @@ void P_SlideMove (mobj_t* mo)
     }
 }
 
+//
+// PTR_BounceTraverse (bel: FROM HEXEN)
+//
+
+boolean PTR_BounceTraverse(intercept_t *in)
+{
+    line_t *li;
+
+    if (!in->isaline)
+        I_Error("PTR_BounceTraverse: not a line?");
+
+    li = in->d.line;
+    if (!(li->flags & ML_TWOSIDED))
+    {
+        if (P_PointOnLineSide(slidemo->x, slidemo->y, li))
+            return true; // don't hit the back side
+        goto bounceblocking;
+    }
+
+    P_LineOpening(li); // set openrange, opentop, openbottom
+    if (openrange < slidemo->height)
+        goto bounceblocking; // doesn't fit
+
+    if (opentop - slidemo->z < slidemo->height)
+        goto bounceblocking; // mobj is too high
+    return true;             // this line doesn't block movement
+
+    // the line does block movement, see if it is closer than best so far
+bounceblocking:
+    if (in->frac < bestslidefrac)
+    {
+        secondslidefrac = bestslidefrac;
+        secondslideline = bestslideline;
+        bestslidefrac = in->frac;
+        bestslideline = li;
+    }
+    return false; // stop
+}
+
+//
+// P_BounceWall (bel: FROM HEXEN)
+//
+
+void P_BounceWall(mobj_t *mo)
+{
+    fixed_t leadx, leady;
+    int side;
+    angle_t lineangle, moveangle, deltaangle;
+    fixed_t movelen;
+
+    slidemo = mo;
+
+    //
+    // trace along the three leading corners
+    //
+    if (mo->momx > 0)
+    {
+        leadx = mo->x + mo->radius;
+    }
+    else
+    {
+        leadx = mo->x - mo->radius;
+    }
+    if (mo->momy > 0)
+    {
+        leady = mo->y + mo->radius;
+    }
+    else
+    {
+        leady = mo->y - mo->radius;
+    }
+    bestslidefrac = FRACUNIT + 1;
+    P_PathTraverse(leadx, leady, leadx + mo->momx, leady + mo->momy,
+                   PT_ADDLINES, PTR_BounceTraverse);
+
+    // P_BounceWall call on a tall sector after fresh game start
+    // without the player sliding along any walls before.
+    // For more details check:
+    // https://github.com/chocolate-doom/chocolate-doom/issues/1732
+    // https://github.com/chocolate-doom/chocolate-doom/issues/1160
+    if (bestslideline == NULL)
+    {
+        I_Error("P_BounceWall: No bestslideline was set. Try bumping walls.");
+    }
+
+    side = P_PointOnLineSide(mo->x, mo->y, bestslideline);
+    lineangle = R_PointToAngle2(0, 0, bestslideline->dx, bestslideline->dy);
+    if (side == 1)
+        lineangle += ANG180;
+    moveangle = R_PointToAngle2(0, 0, mo->momx, mo->momy);
+    deltaangle = (2 * lineangle) - moveangle;
+    //      if (deltaangle > ANG180)
+    //              deltaangle += ANG180;
+    //              I_Error ("SlideLine: ang>ANG180");
+
+    lineangle >>= ANGLETOFINESHIFT;
+    deltaangle >>= ANGLETOFINESHIFT;
+
+    movelen = P_AproxDistance(mo->momx, mo->momy);
+    movelen = FixedMul(movelen, 0.75 * FRACUNIT); // friction
+    if (movelen < FRACUNIT)
+        movelen = 2 * FRACUNIT;
+    mo->momx = FixedMul(movelen, finecosine[deltaangle]);
+    mo->momy = FixedMul(movelen, finesine[deltaangle]);
+}
 
 //
 // P_LineAttack

@@ -128,16 +128,16 @@
 
 // HEALTH number pos.
 #define ST_HEALTHWIDTH		3	
-#define ST_HEALTHX			49//90
+#define ST_HEALTHX			129//90
 #define ST_HEALTHY			173//171
 
 // Weapon pos.
-#define ST_ARMSX			66//111
-#define ST_ARMSY			173//172
+#define ST_ARMSX			236//66//111
+#define ST_ARMSY			172//173//172
 #define ST_ARMSBGX			59//104
 #define ST_ARMSBGY			168//168
-#define ST_ARMSXSPACE		6//12
-#define ST_ARMSYSPACE		8//10
+#define ST_ARMSXSPACE		10//6//12
+#define ST_ARMSYSPACE		6//8//10
 
 // Frags pos.
 #define ST_FRAGSX			138
@@ -146,7 +146,7 @@
 
 // ARMOR number pos.
 #define ST_ARMORWIDTH		3
-#define ST_ARMORX			129//221
+#define ST_ARMORX			49//221
 #define ST_ARMORY			173
 // Key icon positions.
 #define ST_KEY0WIDTH		8
@@ -163,16 +163,16 @@
 // Ammunition counter.
 #define ST_AMMO0WIDTH		3
 #define ST_AMMO0HEIGHT		6
-#define ST_AMMO0X			260
+#define ST_AMMO0X			254
 #define ST_AMMO0Y			172
 #define ST_AMMO1WIDTH		ST_AMMO0WIDTH
-#define ST_AMMO1X			260
+#define ST_AMMO1X			254
 #define ST_AMMO1Y			178
 #define ST_AMMO2WIDTH		ST_AMMO0WIDTH
-#define ST_AMMO2X			260
+#define ST_AMMO2X			254
 #define ST_AMMO2Y			190
 #define ST_AMMO3WIDTH		ST_AMMO0WIDTH
-#define ST_AMMO3X			260
+#define ST_AMMO3X			254
 #define ST_AMMO3Y			184
 
 // Indicate maximum ammunition.

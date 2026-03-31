@@ -399,7 +399,7 @@ A_Lower
   pspdef_t*	psp )
 {	
     fixed_t crap = FixedDiv(psp->sy, WEAPONBOTTOM - WEAPONTOP);
-    psp->sx += 5*FRACUNIT;
+    psp->sx += 6*FRACUNIT;
     psp->sy += FixedMul(crap,crap) * 24;
     // Is already down.
     if (psp->sy < WEAPONBOTTOM )

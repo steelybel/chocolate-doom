@@ -110,6 +110,48 @@ void P_ExplodeMissile (mobj_t* mo)
 	S_StartSound (mo, mo->info->deathsound);
 }
 
+// bel 20260327: adapting bounce code from heretic/hexen.
+//  changes made as necessary to support the vision.
+
+//
+// P_FloorBounceMissile
+//
+
+void P_FloorBounceMissile(mobj_t *mo)
+{
+    switch (mo->type)
+    {
+        //bel: placeholder so i dont forget we can do this
+        case MT_ARACHPLAZ:
+            mo->momz = -mo->momz; // no energy absorbed
+            break;
+        case MT_FATSHOT:
+            mo->momz = FixedMul(mo->momz, -0.3 * FRACUNIT);
+            if (abs(mo->momz) < (FRACUNIT / 2))
+            {
+                P_SetMobjState(mo, S_NULL);
+                return;
+            }
+            break;
+        case MT_ROCKET:
+        default:
+            mo->momz = FixedMul(mo->momz, -0.7 * FRACUNIT);
+            break;
+    }
+    mo->momx = 2 * mo->momx / 3;
+    mo->momy = 2 * mo->momy / 3;
+}
+
+//
+// P_ThrustMobj
+//
+
+void P_ThrustMobj(mobj_t *mo, angle_t angle, fixed_t move)
+{
+    angle >>= ANGLETOFINESHIFT;
+    mo->momx += FixedMul(move, finecosine[angle]);
+    mo->momy += FixedMul(move, finesine[angle]);
+}
 
 //
 // P_XYMovement  
@@ -172,9 +214,15 @@ void P_XYMovement (mobj_t* mo)
 	if (!P_TryMove (mo, ptryx, ptryy))
 	{
 	    // blocked move
-	    if (mo->player)
+        // bel 3/27/26: adding bounce handling!
+        if (mo->flags & MF_BOUNCES)
+        {
+            P_BounceWall(mo);
+        }
+
+	    if (player) //bel: pretty sure this is enough.
 	    {	// try to slide along it
-		P_SlideMove (mo);
+		    P_SlideMove (mo);
 	    }
 	    else if (mo->flags & MF_MISSILE)
 	    {
@@ -322,6 +370,11 @@ void P_ZMovement (mobj_t* mo)
 	    mo->momz = -mo->momz;
 	}
 	
+    if (mo->flags & MF_BOUNCES)
+    {
+        P_FloorBounceMissile(mo);
+        //return;
+    }
 	if (mo->momz < 0)
 	{
 	    if (mo->player

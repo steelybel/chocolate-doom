@@ -132,8 +132,8 @@ state_t	states[NUMSTATES] = {
     {SPR_PUNG,0,1,{A_Raise},S_PUNCHUP,0,0},	// S_PUNCHUP
     {SPR_PUNG,1,5,{NULL},S_PUNCH2,0,0},		// S_PUNCH1
     {SPR_PUNG,2,3,{A_LoadShotgun2},S_PUNCH3,0,0},	// S_PUNCH2
-    {SPR_PUNG,3,3,{A_Punch},S_PUNCH4,0,0},		// S_PUNCH3
-    {SPR_PUNG,4,3,{NULL},S_PUNCH5,0,0},		// S_PUNCH4
+    {SPR_PUNG,3,2,{A_Punch},S_PUNCH4,0,0},		// S_PUNCH3
+    {SPR_PUNG,4,2,{NULL},S_PUNCH5,0,0},		// S_PUNCH4
     {SPR_MISG,1,3,{NULL},S_PUNCH,0,0},	// S_PUNCH5
     {SPR_PISG,0,1,{A_WeaponReady},S_PISTOL,0,0},// S_PISTOL
     {SPR_PISG,0,1,{A_Lower},S_PISTOLDOWN,0,0},	// S_PISTOLDOWN
@@ -335,9 +335,9 @@ state_t	states[NUMSTATES] = {
     {SPR_SPOS,0,10,{A_Look},S_SPOS_STND2,0,0},	// S_SPOS_STND
     {SPR_SPOS,1,10,{A_Look},S_SPOS_STND,0,0},	// S_SPOS_STND2
     {SPR_SPOS,0,3,{A_Chase},S_SPOS_RUN2,0,0},	// S_SPOS_RUN1
-    {SPR_SPOS,0,3,{A_Chase},S_SPOS_RUN3,0,0},	// S_SPOS_RUN2
-    {SPR_SPOS,1,3,{A_Chase},S_SPOS_RUN4,0,0},	// S_SPOS_RUN3
-    {SPR_SPOS,1,3,{A_Chase},S_SPOS_RUN5,0,0},	// S_SPOS_RUN4
+    {SPR_SPOS,1,3,{A_Chase},S_SPOS_RUN3,0,0},	// S_SPOS_RUN2
+    {SPR_SPOS,2,3,{A_Chase},S_SPOS_RUN4,0,0},	// S_SPOS_RUN3
+    {SPR_SPOS,3,3,{A_Chase},S_SPOS_RUN1,0,0},	// S_SPOS_RUN4
     {SPR_SPOS,2,3,{A_Chase},S_SPOS_RUN6,0,0},	// S_SPOS_RUN5
     {SPR_SPOS,2,3,{A_Chase},S_SPOS_RUN7,0,0},	// S_SPOS_RUN6
     {SPR_SPOS,3,3,{A_Chase},S_SPOS_RUN8,0,0},	// S_SPOS_RUN7
@@ -436,11 +436,11 @@ state_t	states[NUMSTATES] = {
     {SPR_FIRE,32775,2,{A_Fire},S_FIRE29,0,0},	// S_FIRE28
     {SPR_FIRE,32774,2,{A_Fire},S_FIRE30,0,0},	// S_FIRE29
     {SPR_FIRE,32775,2,{A_Fire},S_NULL,0,0},	// S_FIRE30
-    {SPR_PUFF,1,4,{NULL},S_SMOKE2,0,0},	// S_SMOKE1
-    {SPR_PUFF,2,4,{NULL},S_SMOKE3,0,0},	// S_SMOKE2
-    {SPR_PUFF,1,4,{NULL},S_SMOKE4,0,0},	// S_SMOKE3
-    {SPR_PUFF,2,4,{NULL},S_SMOKE5,0,0},	// S_SMOKE4
-    {SPR_PUFF,3,4,{NULL},S_NULL,0,0},	// S_SMOKE5
+    {SPR_SMT2,1,4,{NULL},S_SMOKE2,0,0},	// S_SMOKE1
+    {SPR_SMT2,2,4,{NULL},S_SMOKE3,0,0},	// S_SMOKE2
+    {SPR_SMT2,1,4,{NULL},S_SMOKE4,0,0},	// S_SMOKE3
+    {SPR_SMT2,2,4,{NULL},S_SMOKE5,0,0},	// S_SMOKE4
+    {SPR_SMT2,3,4,{NULL},S_NULL,0,0},	// S_SMOKE5
     {SPR_FATB,32768,2,{A_Tracer},S_TRACER,0,0},	// S_TRACER
     {SPR_FBXP,32769,4,{A_Explode},S_TRACEEXP1,0,0},	// S_TRACER2
     {SPR_FBXP,32770,4,{NULL},S_TRACEEXP2,0,0},	// S_TRACEEXP1
@@ -534,9 +534,9 @@ state_t	states[NUMSTATES] = {
     {SPR_CPOS,0,10,{A_Look},S_CPOS_STND2,0,0},	// S_CPOS_STND
     {SPR_CPOS,1,10,{A_Look},S_CPOS_STND,0,0},	// S_CPOS_STND2
     {SPR_CPOS,0,3,{A_Chase},S_CPOS_RUN2,0,0},	// S_CPOS_RUN1
-    {SPR_CPOS,0,3,{A_Chase},S_CPOS_RUN3,0,0},	// S_CPOS_RUN2
-    {SPR_CPOS,1,3,{A_Chase},S_CPOS_RUN4,0,0},	// S_CPOS_RUN3
-    {SPR_CPOS,1,3,{A_Chase},S_CPOS_RUN5,0,0},	// S_CPOS_RUN4
+    {SPR_CPOS,1,3,{A_Chase},S_CPOS_RUN3,0,0},	// S_CPOS_RUN2
+    {SPR_CPOS,2,3,{A_Chase},S_CPOS_RUN4,0,0},	// S_CPOS_RUN3
+    {SPR_CPOS,3,3,{A_Chase},S_CPOS_RUN1,0,0},	// S_CPOS_RUN4
     {SPR_CPOS,2,3,{A_Chase},S_CPOS_RUN6,0,0},	// S_CPOS_RUN5
     {SPR_CPOS,2,3,{A_Chase},S_CPOS_RUN7,0,0},	// S_CPOS_RUN6
     {SPR_CPOS,3,3,{A_Chase},S_CPOS_RUN8,0,0},	// S_CPOS_RUN7
@@ -1958,7 +1958,7 @@ mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
     {		// MT_ROCKET
 	-1,		// doomednum
 	S_SOUL2,		// spawnstate
-	1000,		// spawnhealth
+	105,		// spawnhealth
 	S_NULL,		// seestate
 	sfx_rlaunc,		// seesound
 	8,		// reactiontime
@@ -1971,13 +1971,13 @@ mobjinfo_t mobjinfo[NUMMOBJTYPES] = {
 	S_TRACER2,		// deathstate
 	S_NULL,		// xdeathstate
 	sfx_barexp,		// deathsound
-	12*FRACUNIT,		// speed
+	10*FRACUNIT,		// speed
 	8*FRACUNIT,		// radius
 	8*FRACUNIT,		// height
 	100,		// mass
 	0,		// damage
 	sfx_None,		// activesound
-	MF_NOBLOCKMAP|MF_DROPOFF|MF_MISSILE,//|MF_NOGRAVITY,		// flags
+	MF_NOBLOCKMAP|MF_DROPOFF|MF_BOUNCES|MF_MISSILE,//|MF_MISSILE|MF_NOGRAVITY,		// flags
 	S_NULL		// raisestate
     },
 

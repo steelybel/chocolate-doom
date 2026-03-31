@@ -47,7 +47,7 @@
 // but we do not have any moving sectors nearby
 #define MAXRADIUS		32*FRACUNIT
 
-#define GRAVITY		FRACUNIT/2
+#define GRAVITY		FRACUNIT///2
 #define MAXMOVE		(30*FRACUNIT)
 
 #define USERANGE		(64*FRACUNIT)
@@ -227,6 +227,7 @@ boolean P_CheckPosition (mobj_t *thing, fixed_t x, fixed_t y);
 boolean P_TryMove (mobj_t* thing, fixed_t x, fixed_t y);
 boolean P_TeleportMove (mobj_t* thing, fixed_t x, fixed_t y);
 void	P_SlideMove (mobj_t* mo);
+void    P_BounceWall(mobj_t *mo); //from hexen
 boolean P_CheckSight (mobj_t* t1, mobj_t* t2);
 void 	P_UseLines (player_t* player);
 

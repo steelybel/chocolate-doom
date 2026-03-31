@@ -887,15 +887,34 @@ void A_SpidRefire (mobj_t* actor)
     }
 }
 
+//bel: add misc1 handler to do spread on fast enemy proj.
+// inspo: q1 deathknights and dusk soldiers
+
+#define BSPISPR (ANG90/16)
+
 void A_BspiAttack (mobj_t *actor)
 {	
+    mobj_t *mo;
+    int an;
+
     if (!actor->target)
 	return;
 		
     A_FaceTarget (actor);
+    
+    mo = P_SpawnMissile(actor, actor->target, MT_ARACHPLAZ);
+
+    if (actor->state->misc1)
+    {
+        mo->angle += BSPISPR * actor->state->misc1;
+        an = mo->angle >> ANGLETOFINESHIFT;
+        mo->momx = FixedMul(mo->info->speed, finecosine[an]);
+        mo->momy = FixedMul(mo->info->speed, finesine[an]);
+        // Change direction  to ...
+    }
 
     // launch a missile
-    P_SpawnMissile (actor, actor->target, MT_ARACHPLAZ);
+    //P_SpawnMissile (actor, actor->target, MT_ARACHPLAZ);
 }
 
 
