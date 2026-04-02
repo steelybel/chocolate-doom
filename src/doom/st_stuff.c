@@ -37,6 +37,10 @@
 
 #include "g_game.h"
 
+//added:    access ammo type of weapons
+//          to draw next to their number.
+#include "d_items.h"
+
 #include "st_stuff.h"
 #include "st_lib.h"
 #include "r_local.h"
@@ -136,7 +140,7 @@
 #define ST_ARMSY			172//173//172
 #define ST_ARMSBGX			59//104
 #define ST_ARMSBGY			168//168
-#define ST_ARMSXSPACE		10//6//12
+#define ST_ARMSXSPACE		22//6//12
 #define ST_ARMSYSPACE		6//8//10
 
 // Frags pos.
@@ -283,7 +287,7 @@ static st_multicon_t	w_keyboxes[3];
 static st_percent_t	w_armor;
 
 // ammo widgets
-static st_number_t	w_ammo[4];
+static st_number_t	w_ammo[6];
 
 // max ammo widgets
 static st_number_t	w_maxammo[4]; 
@@ -958,10 +962,10 @@ void ST_drawWidgets(boolean refresh)
 
     STlib_updateNum(&w_ready, refresh);
 
-    for (i=0;i<4;i++)
+    for (i=0;i<6;i++)
     {
 	STlib_updateNum(&w_ammo[i], refresh);
-	STlib_updateNum(&w_maxammo[i], refresh);
+	//STlib_updateNum(&w_maxammo[i], refresh);
     }
 
     STlib_updatePercent(&w_health, refresh);
@@ -971,6 +975,7 @@ void ST_drawWidgets(boolean refresh)
 
     for (i=0;i<6;i++)
 	STlib_updateMultIcon(&w_arms[i], refresh);
+    //STlib_updateNum(&w_ammo[i], refresh);
 
     STlib_updateMultIcon(&w_faces, refresh);
 
@@ -978,8 +983,6 @@ void ST_drawWidgets(boolean refresh)
 	STlib_updateMultIcon(&w_keyboxes[i], refresh);
 
     STlib_updateNum(&w_frags, refresh);
-    V_DrawPatchDirect(SCREENWIDTH / 2, SCREENHEIGHT / 2,
-    W_CacheLumpName(DEH_String("STCROSS"), PU_CACHE));
 
 }
 
@@ -1182,6 +1185,8 @@ void ST_createWidgets(void)
 {
 
     int i;
+    int wx, wy;
+    int at; //ammo type
 
     // ready weapon ammo
     STlib_initNum(&w_ready,
@@ -1215,12 +1220,18 @@ void ST_createWidgets(void)
     // weapons owned
     for(i=0;i<6;i++)
     {
+        wx = ST_ARMSX + (i % 2) * ST_ARMSXSPACE;
+        wy = ST_ARMSY + (i / 2) * ST_ARMSYSPACE;
         STlib_initMultIcon(&w_arms[i],
-                           ST_ARMSX+(i%3)*ST_ARMSXSPACE,
-                           ST_ARMSY+(i/3)*ST_ARMSYSPACE,
-                           arms[i],
-                           &plyr->weaponowned[i+1],
-                           &st_armson);
+            wx,
+            wy,
+            arms[i],
+            &plyr->weaponowned[i+1],
+            &st_armson);
+        at = weaponinfo[i].ammo;
+        STlib_initNum(&w_ammo[i], wx + 18, wy, shortnum,
+            &plyr->ammo[weaponinfo[i+1].ammo],
+            &st_statusbaron, ST_AMMO0WIDTH);
     }
 
     // frags sum
@@ -1271,6 +1282,7 @@ void ST_createWidgets(void)
 		       &st_statusbaron);
 
     // ammo count (all four kinds)
+    /*
     STlib_initNum(&w_ammo[0],
 		  ST_AMMO0X,
 		  ST_AMMO0Y,
@@ -1335,6 +1347,7 @@ void ST_createWidgets(void)
 		  &plyr->maxammo[3],
 		  &st_statusbaron,
 		  ST_MAXAMMO3WIDTH);
+    */
 
 }
 
