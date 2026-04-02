@@ -410,10 +410,11 @@ void P_ZMovement (mobj_t* mo)
     }
     else if (! (mo->flags & MF_NOGRAVITY) )
     {
+        fixed_t grav = (mo->flags & MF_LOWGRAV) ? (GRAVITY / 2) : GRAVITY;
 	if (mo->momz == 0)
-	    mo->momz = -GRAVITY*2;
+	    mo->momz = -grav*2;
 	else
-	    mo->momz -= GRAVITY;
+	    mo->momz -= grav;
     }
 	
     if (mo->z + mo->height > mo->ceilingz)
@@ -961,6 +962,8 @@ P_SpawnBlood
 	
     z += (P_SubRandom() << 10);
     th = P_SpawnMobj (x,y,z, MT_BLOOD);
+    th->momx = P_SubRandom() * (FRACUNIT / 4);
+    th->momy = P_SubRandom() * (FRACUNIT / 4);
     th->momz = FRACUNIT*2;
     th->tics -= P_Random()&3;
 
