@@ -65,8 +65,8 @@ typedef struct
     int		tics;
     fixed_t	sx;
     fixed_t	sy;
-    fixed_t ofsx;
-    fixed_t ofsy;
+    int ofsx;
+    int ofsy;
 
 } pspdef_t;
 

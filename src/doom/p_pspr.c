@@ -70,15 +70,22 @@ P_SetPsprite
 	psp->state = state;
 	psp->tics = state->tics;	// could be 0
 
-    fixed_t bobx = P_GetBob(player, false);
-    fixed_t boby = P_GetBob(player, true);
+    //fixed_t bobx = P_GetBob(player, false);
+    //fixed_t boby = P_GetBob(player, true);
 
-	if (state->misc1 || state->misc2)
+	if (128 < state->misc2 >= 0)//prev: (state->misc1 || state->misc2)
 	{
+        psp->ofsx = state->misc1;
+        psp->ofsy = state->misc2 - 32;
 	    // coordinate set
-	    psp->sx = bobx + (state->misc1 << FRACBITS);
-	    psp->sy = boby + (state->misc2 << FRACBITS) - WEAPONTOP;
-	}
+	    //psp->sx = bobx + (state->misc1 << FRACBITS);
+	    //psp->sy = boby + (state->misc2 << FRACBITS) - WEAPONTOP;
+    }
+    else
+    {
+        psp->ofsx = 0;
+        psp->ofsy = 0;
+    }
 	
 	// Call action routine.
 	// Modified handling.
@@ -965,6 +972,7 @@ void P_MovePsprites (player_t* player)
 	// a null state means not active
 	if (psp->state)
 	{
+        state_t* state = psp->state;
 	    // drop tic count and possibly change state
 
 	    // a -1 tic count never changes
@@ -974,9 +982,17 @@ void P_MovePsprites (player_t* player)
 		if (!psp->tics)
 		    P_SetPsprite (player, i, psp->state->nextstate);
 	    }				
+        fixed_t bobx = P_GetBob(player, false);
+        fixed_t boby = P_GetBob(player, true);
+        if (state->tics && (psp->ofsx || psp->ofsy))
+        {
+            fixed_t tix = FixedDiv((state->tics - psp->tics) * FRACUNIT,
+                                state->tics * FRACUNIT);
+            //player->psprites[i].sx = bobx + (psp->ofsx * tix);
+            //player->psprites[i].sy = bobx + (psp->ofsy * tix);
+        }
 	}
     }
-    
     player->psprites[ps_flash].sx = player->psprites[ps_weapon].sx;
     player->psprites[ps_flash].sy = player->psprites[ps_weapon].sy;
 }

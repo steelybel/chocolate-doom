@@ -159,10 +159,10 @@
 #define ST_KEY0Y			171//171
 #define ST_KEY1WIDTH		ST_KEY0WIDTH
 #define ST_KEY1X			292
-#define ST_KEY1Y			181//181
+#define ST_KEY1Y			176//181
 #define ST_KEY2WIDTH		ST_KEY0WIDTH
 #define ST_KEY2X			292
-#define ST_KEY2Y			191//191
+#define ST_KEY2Y			181//191
 
 // Ammunition counter.
 #define ST_AMMO0WIDTH		3
@@ -245,6 +245,9 @@ static patch_t*		tallpercent;
 
 // 0-9, short, yellow (,different!) numbers
 static patch_t*		shortnum[10];
+
+// bel: shortnum for the gray numbers!
+static patch_t*     shortnug[10];
 
 // 3 key-cards, 3 skulls
 static patch_t*		keys[NUMCARDS]; 
@@ -1043,6 +1046,10 @@ static void ST_loadUnloadGraphics(load_callback_t callback)
 
 	DEH_snprintf(namebuf, 9, "STYSNUM%d", i);
         callback(namebuf, &shortnum[i]);
+
+    DEH_snprintf(namebuf, 9, "STGNUM%d", i);
+        callback(namebuf, &shortnug[i]);
+
     }
 
     // Load percent key.
@@ -1187,6 +1194,7 @@ void ST_createWidgets(void)
     int i;
     int wx, wy;
     int at; //ammo type
+    boolean gy; //gray or yellow?
 
     // ready weapon ammo
     STlib_initNum(&w_ready,
@@ -1229,6 +1237,7 @@ void ST_createWidgets(void)
             &plyr->weaponowned[i+1],
             &st_armson);
         at = weaponinfo[i].ammo;
+        gy = (plyr->readyweapon == i + 1);//doesnt work
         STlib_initNum(&w_ammo[i], wx + 18, wy, shortnum,
             &plyr->ammo[weaponinfo[i+1].ammo],
             &st_statusbaron, ST_AMMO0WIDTH);
