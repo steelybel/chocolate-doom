@@ -567,10 +567,10 @@ P_SpawnDoorRaiseIn5Mins
 
 
 
-// UNUSED
-// Separate into p_slidoor.c?
+// UNUSED NO MORE
+// Separate into p_slidoor.c? Nahh
 
-#if 0		// ABANDONED TO THE MISTS OF TIME!!!
+//#if 0		// NO LONGER ABANDONED TO THE MISTS OF TIME!!!
 //
 // EV_SlidingDoor : slide a door horizontally
 // (animate midtexture, then set noblocking line)
@@ -777,4 +777,4 @@ EV_SlidingDoor
 	door->line = line;
     }
 }
-#endif
+//#endif
