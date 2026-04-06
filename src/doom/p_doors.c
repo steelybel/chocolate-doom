@@ -771,7 +771,7 @@ EV_SlidingDoor
 			
 	door->frontsector = sec;
 	door->backsector = line->backsector;
-	door->thinker.function = T_SlidingDoor;
+	door->thinker.function.acp1 = (actionf_p1)T_SlidingDoor;
 	door->timer = SWAITTICS;
 	door->frame = 0;
 	door->line = line;
