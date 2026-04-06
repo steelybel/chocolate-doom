@@ -34,7 +34,7 @@
 #include "dstrings.h"
 #include "sounds.h"
 
-#if 0
+//#if 0
 //
 // Sliding door frame information
 //
@@ -45,7 +45,7 @@ slidename_t	slideFrameNames[MAXSLIDEDOORS] =
 	 
     {"\0","\0","\0","\0"}
 };
-#endif
+//#endif
 
 
 //
